@@ -1,8 +1,9 @@
 # Elastic (ELK) static v7.12
-This directory contains code to run an Elastic stack
+### WORK IN PROGRESS
+This directory contains code to run an Elastic stack. It is not yet complete and should not be assumed for use in a production environment.
 
 ## Updated
-This repo has been updated on 4/14/2021
+This repo has been updated on 4/16/2021
 
 ## Generate a CA Certificate
 ```bash
@@ -11,7 +12,7 @@ openssl req -x509 -new -nodes -key ca.key -sha256 -days 1825 -out ca.crt
 ```
 
 ## Generate Your own OpenSSL certs
-1. ```
+```
 # Create a CSR for your domains CA. If you do this be sure to replace the SSL certificates in the containers
 openssl req -new -newkey rsa:2048 -nodes -out request.csr -keyout private.key
 
@@ -27,19 +28,26 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/logstash.k
 ```
 
 ## Spin up an ELK stack
-1. `docker-compose build`
-2. `docker-compose up -d`
-3. `docker-compose ps`
-4. `docker stats`
+```bash
+# Download docker images
+docker-compose build
 
-## System requirements
-* 4 CPU cores
-* 4 GBs of RAM
-* 60 GB of HDD
+# Start the docker images
+docker-compose up -d
+
+# View info on running images
+docker-compose ps
+docker stats
+```
+
+## System Minimum Requirements
+- 4 CPU cores
+- 4 GBs of RAM
+- 60 GB of HDD
 
 
 ## References
-* [DockerHub - Nginx](https://hub.docker.com/_/nginx?tab=tags)
-* [Dockerhub - Logstash](https://hub.docker.com/_/logstash)
-* [Dockerhub - Kibana](https://hub.docker.com/_/kibana)
-* [Dockerhub - Elasticsearch](https://hub.docker.com/_/elasticsearch)
+- [DockerHub - Nginx](https://hub.docker.com/_/nginx?tab=tags)
+- [Dockerhub - Logstash](https://hub.docker.com/_/logstash)
+- [Dockerhub - Kibana](https://hub.docker.com/_/kibana)
+- [Dockerhub - Elasticsearch](https://hub.docker.com/_/elasticsearch)
