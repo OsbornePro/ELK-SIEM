@@ -1,0 +1,11 @@
+# Logstash Configuration File
+http.enabled: true
+http.host: "0.0.0.0"
+http.port: 9600-9700
+
+path.config: /usr/share/logstash/pipeline
+pipeline.ordered: auto
+# Pipeline workers will default to your CPU cores. This is set to 8 beacuse of our docker-compose.yml configuration
+pipeline.workers: 8
+
+xpack.monitoring.enabled: false

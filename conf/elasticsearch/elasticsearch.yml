@@ -1,0 +1,41 @@
+## Default Elasticsearch configuration from elasticsearch-docker.
+## from https://github.com/elastic/elasticsearch-docker/blob/master/build/elasticsearch/elasticsearch.yml
+#
+#cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+network.port: 9200
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+#discovery.zen.minimum_master_nodes: 1
+
+## Use single node discovery in order to disable production mode and avoid bootstrap checks
+## see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+#
+discovery.type: single-node
+discovery.seed_hosts: ["127.0.0.1"]
+
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.key: /usr/share/elasticsearch/ssl/elasticsearch.key
+xpack.security.http.ssl.certificate: /usr/share/elasticsearch/ssl/elasticsearch.crt
+xpack.monitoring.collection.enabled: true
+
+# IF YOU PAY FOR A PRO 1 LICENSE YOU CAN USE LDAP AUTHENTICATION
+#  xpack:
+#      security:
+#          auth:
+#              realms:
+#                  active_directory:
+#                      my_ad:
+#                          order: 0
+#                          domain_name: domain.com
+#                          url: ldaps://domaincontroller.domain.com:636
+#                          bind_dn: ldapadmin@domain.com
+#                          ssl:
+#                              certificate_authorities: ["ca.pem"]
+#
+# THIS COMMAND CAN BE EXECUTED TO ADD THE BIND DN PASSWORD TO A SECURED KEYSTORE
+# .\bin\elasticsearch-keystore add xpack.security.authc.realms.ldap.ldap1.secure_bind_password

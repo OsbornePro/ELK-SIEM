@@ -1,0 +1,12 @@
+FROM docker.elastic.co/logstash/logstash:7.12.0@sha256:82ad022505adb11cba35cd96f97b9fc3c4435119c9352a539a9100c7f07fd42d
+
+# Copy SSL
+COPY conf/ssl/logstash.crt /usr/share/logstash/ssl/logstash.crt
+COPY conf/ssl/logstash.key /usr/share/logstash/ssl/logstash.key
+
+# Copy logstash.yml
+RUN rm -rf /usr/share/logstash/pipeline/logstash.conf
+COPY conf/logstash/logstash.yml /usr/share/logstash/config/logstash.yml
+
+# Copy pipeline configs
+COPY conf/logstash/pipeline/ /usr/share/logstash/pipeline
