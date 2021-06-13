@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-logstash
       args:
-        LOGSTASH_VERSION: ${ELASTIC_VERSRION}
+        LOGSTASH_VERSION: ${ELASTIC_VERSION}
     container_name: 'elk-logstash'
     restart: unless-stopped
     ports:
@@ -41,7 +41,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-elasticsearch
       args:
-        ELASTICSEARCH_VERSION: ${ELASTIC_VERSRION}
+        ELASTICSEARCH_VERSION: ${ELASTIC_VERSION}
     container_name: 'elk-elasticsearch'
     restart: unless-stopped
     environment:
@@ -59,7 +59,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile-kibana
       args:
-        KIBANA_VERSION: ${ELASTIC_VERSRION}
+        KIBANA_VERSION: ${ELASTIC_VERSION}
     container_name: 'elk-kibana'
     restart: unless-stopped
     networks:
