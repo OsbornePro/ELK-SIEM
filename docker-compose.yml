@@ -52,6 +52,7 @@ services:
     volumes:
         - es-data:/usr/share/elasticsearch/data
     networks:
+      - default
       - es-backend
     cpus: 2
     mem_limit: 1G
@@ -68,6 +69,7 @@ services:
     ports:
       - 5601:5601
     networks:
+      - default
       - es-backend
     cpus: 2
     mem_limit: 1G
