@@ -29,6 +29,14 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/logstash.k
 
 ## Spin up an ELK stack
 ```bash
+# Create directory for your docker images (Only root user should ever have permissions to run docker)
+sudo -i
+# Enter Password: 
+mkdir -p /root/docker/images
+cd /root/docker/images
+git clone https://github.com/OsbornePro/ELK-SIEM.git
+cd ELK-SIEM/
+
 # Download docker images
 docker-compose build
 
