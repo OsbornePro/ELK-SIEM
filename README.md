@@ -1,9 +1,9 @@
 # Elastic (ELK) static v7.12
 ### WORK IN PROGRESS
-This directory contains code to run an Elastic stack. It is not yet complete and should not be assumed for use in a production environment.
+This directory contains code to run an Elasticsearch stack. It is not yet complete and should not be assumed for use in a production environment. As of right now the ```docker-compose build``` command does not work on MacOS. It returns "File Not Found" errors when run. This is because the MacOS stores its binaries in locations than are different than Open-Source Linux based distros.
 
 ## Updated
-This repo has been updated on 4/16/2021
+This repo has been updated on 6/17/2021
 
 ## Generate a CA Certificate
 ```bash
