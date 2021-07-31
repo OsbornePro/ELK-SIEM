@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+FROM docker.elastic.co/elasticsearch/elasticsearch:7.13.4
 COPY conf/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 # Copy SSL

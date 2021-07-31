@@ -1,4 +1,4 @@
-FROM docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
+FROM docker.elastic.co/kibana/kibana:7.13.4
 COPY conf/kibana/kibana.yml /usr/share/kibana/config/kibana.yml
 
 # Copy SSL

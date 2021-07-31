@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
+FROM docker.elastic.co/logstash/logstash:7.13.4
 
 # Copy SSL
 COPY conf/ssl/logstash.crt /usr/share/logstash/ssl/logstash.crt
