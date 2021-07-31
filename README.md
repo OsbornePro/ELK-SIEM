@@ -1,4 +1,4 @@
-# Elastic (ELK) static v7.12
+# Elastic (ELK) static v7.13.4
 ### WORK IN PROGRESS
 This directory contains code to run an Elasticsearch stack. It is not yet complete and should not be assumed for use in a production environment. As of right now the ```docker-compose build``` command does not work on MacOS. It returns "File Not Found" errors when run. This is because the MacOS has a file structure that is different than other Open-Source Linux based distros the tool was written for.
 
@@ -31,7 +31,7 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/logstash.k
 ```bash
 # Create directory for your docker images (Only root user should ever have permissions to run docker)
 sudo -i
-# Enter Password: 
+# Enter Password:
 mkdir -p /root/docker/images
 cd /root/docker/images
 git clone https://github.com/OsbornePro/ELK-SIEM.git
