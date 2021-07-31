@@ -4,3 +4,6 @@ COPY conf/kibana/kibana.yml /usr/share/kibana/config/kibana.yml
 # Copy SSL
 COPY conf/ssl/kibana.crt /usr/share/kibana/ssl/kibana.crt
 COPY conf/ssl/kibana.key /usr/share/kibana/ssl/kibana.key
+
+# Expose HTTPS Port
+EXPOSE 5601

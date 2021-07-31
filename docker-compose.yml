@@ -14,7 +14,6 @@ services:
       - 8443:443
     networks:
       - default
-      - es-backend
     cpus: 2
     mem_limit: 150M
 
@@ -31,7 +30,6 @@ services:
       - 5044:5044
     networks:
       - default
-      - es-backend
     cpus: 2
     mem_limit: 1G
 
@@ -53,7 +51,6 @@ services:
         - es-data:/usr/share/elasticsearch/data
     networks:
       - default
-      - es-backend
     cpus: 2
     mem_limit: 1G
 
@@ -70,7 +67,6 @@ services:
       - 5601:5601
     networks:
       - default
-      - es-backend
     cpus: 2
     mem_limit: 1G
 

@@ -1,6 +1,11 @@
+MAINTAINER Robert H. Osborne <rosborne@osbornepro.com>
+
 FROM docker.elastic.co/elasticsearch/elasticsearch:7.12.0@sha256:4999c5f75c1d0d69754902d3975dd36875cc2eb4a06d7fdceaa8ec0e71a81dfa
 COPY conf/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 # Copy SSL
 COPY conf/ssl/docker.crt /usr/share/elasticsearch/ssl/elasticsearch.crt
 COPY conf/ssl/docker.key /usr/share/elasticsearch/ssl/elasticsearch.key
+
+# Expose HTTP and transport port
+EXPOSE 9200 9300
