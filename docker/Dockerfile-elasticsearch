@@ -1,5 +1,3 @@
-MAINTAINER Robert H. Osborne <rosborne@osbornepro.com>
-
 FROM docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
 COPY conf/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
