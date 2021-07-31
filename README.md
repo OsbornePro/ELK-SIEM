@@ -11,23 +11,7 @@ openssl genrsa -out ca.key 2048
 openssl req -x509 -new -nodes -key ca.key -sha256 -days 1825 -out ca.crt
 ```
 
-## Generate Your own OpenSSL certs
-```
-# Create a CSR for your domains CA. If you do this be sure to replace the SSL certificates in the containers
-openssl req -new -newkey rsa:2048 -nodes -out request.csr -keyout private.key
-
-# Use a self signed certificate for nginx and elasticsearch
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/docker.key -out conf/ssl/docker.crt
-openssl dhparam -out conf/ssl/dhparam.pem 2048
-
-# Use a self signed certificate for kibana
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/kibana.key -out conf/ssl/kibana.crt
-
-# Use a self signed certificate for logstash
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/logstash.key -out conf/ssl/logstash.crt
-```
-
-## Spin up an ELK stack
+## First Download the Git repo
 ```bash
 # Create directory for your docker images (Only root user should ever have permissions to run docker)
 sudo -i
@@ -36,7 +20,28 @@ mkdir -p /root/docker/images
 cd /root/docker/images
 git clone https://github.com/OsbornePro/ELK-SIEM.git
 cd ELK-SIEM/
+```
 
+## Then Generate Your own OpenSSL certs
+```
+# Create a CSR for your domains CA. If you do this be sure to replace the SSL certificates in the containers
+openssl req -new -newkey rsa:2048 -nodes -out request.csr -keyout private.key
+
+# Generate your Diffie-Hellman key
+openssl dhparam -out conf/ssl/dhparam.pem 2048
+
+# Use a self signed certificate for nginx and elasticsearch
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/docker.key -out conf/ssl/docker.crt
+
+# Use a self signed certificate for kibana
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/kibana.key -out conf/ssl/kibana.crt
+
+# Use a self signed certificate for logstash
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout conf/ssl/logstash.key -out conf/ssl/logstash.crt
+```
+
+## Run your docker image
+```bash
 # Download docker images
 docker-compose build
 

@@ -1,6 +1,6 @@
 MAINTAINER Robert H. Osborne <rosborne@osbornepro.com>
 
-FROM docker.elastic.co/elasticsearch/elasticsearch:7.12.0@sha256:4999c5f75c1d0d69754902d3975dd36875cc2eb4a06d7fdceaa8ec0e71a81dfa
+FROM docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
 COPY conf/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 # Copy SSL
