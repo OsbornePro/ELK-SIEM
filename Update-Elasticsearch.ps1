@@ -42,32 +42,45 @@ ForEach ($Elk in $ELKHashTable.Keys) {
     $YMLFile = $ELKHashTable.$Elk.Item(3)
     $Service = $ELKHashTable.$Elk.Item(4)
     $BackupPath = "$Path.bak"
+    $OutFile = "$env:USERPROFILE\Downloads\$Program.zip"
 
     Write-Output "[*] Backing up old configuration for $Program"
-    If ((Test-Path -Path "$Path.bak") -and (Test-Path -Path $Path)) {
+    If ((Test-Path -Path $BackupPath) -and (Test-Path -Path $Path)) {
 
         Remove-Item -Path "$Path.bak" -Force
 
     }  # End If
 
-    Write-Output "[*] "
-    Move-Item -Path $Path -Destination "$Path.bak" -Recurse -Force -ErrorAction Stop
+    Write-Output "[*] Backing up current $Program version"
+    Move-Item -Path $Path -Destination $BackupPath -Recurse -Force -ErrorAction Stop
 
     Write-Output "[*] Downloading the $Program zip file"
-    Invoke-WebRequest -Uri $Uri -OutFile "$env:USERPROFILE\Downloads\$Program.zip" -Method GET -UserAgent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84" -ContentType "application/zip"
+    Invoke-WebRequest -Uri $Uri -OutFile $OutFile -Method GET -UserAgent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84" -ContentType "application/zip"
 
     Write-Output "[*] Extracting the $Program zip file"
-    Expand-Archive -Path "$env:USERPROFILE\Downloads\$FileName.zip" -DestinationPath $Path
+    Expand-Archive -Path $OutFile -DestinationPath $Path.Replace("$Program","")
+    Rename-Item -Path (Get-ChildItem -Path "$Path-$Version*" -Directory -Force | Select-Object -ExpandProperty FullName -First 1 | Out-String).Trim() -NewName $Path
+    
+    If (Test-Path -Path $Path) {
 
-    Write-Output "[*] Placing SSL Certificates into new Directory"
-    Copy-Item -Path "$BackupPath\config\cert.crt" -Destination "$Path\config\cert.crt"
-    Copy-Item -Path "$BackupPath\config\key.key" -Destination "$Path\config\key.key"
+        Write-Output "[*] Deleting the downloaded and extracted zip file"
+        Remove-Item -Path "$env:USERPROFILE\Downloads\$Program.zip" -Force
+
+    }  # End If
+
+    If ($Program -ne "winlogbeat") {
+
+        Write-Output "[*] Placing SSL Certificates into new Directory"
+        Copy-Item -Path "$BackupPath\config\cert.crt" -Destination "$Path\config\cert.crt" 
+        Copy-Item -Path "$BackupPath\config\key.key" -Destination "$Path\config\key.key"
+
+    }  # End If
 
     Write-Output "[*] Backing up the $Program.yml default file"
-    Move-Item -Path $YMLFile -Destination "$YMLFile.orig" -Force
+    Move-Item -Path $YMLFile.Replace(".bak","") -Destination "$YMLFile.orig" -Force
 
     Write-Output "[*] Updating YML configuration file for $Program.yml"
-    Copy-Item -Path "$BackupPath\config\$Program.yml" -Destination $YMLFile -Force
+    Copy-Item -Path $YMLFile -Destination $YMLFile.Replace(".bak","") -Force
 
 }  # End ForEach
 
