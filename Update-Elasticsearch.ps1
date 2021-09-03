@@ -1,6 +1,6 @@
 # OsbornePro LLC. Update Elasticsearch Instance on Windows Server
 #
-# Script I am working on to automatically update Elasticsearch on a Windows Server
+# IMPORTANT: After running I realized I need to carry over the password databases and such so this is not 100% yet
 #
 # For this to work you will need to modify lines 8, 21, 22, 27, 28, 33, 34, 63, 64
 # Baseed on how you set things up you may or may not need to modify lines 14, 19, 23, 25, 31, 44, 45, 74, 75, 87
