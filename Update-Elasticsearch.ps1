@@ -80,6 +80,9 @@ If ($CurrentVersion -ne $NewestVersion) {
             Write-Output "[*] Placing trusted CA Certificate file into new Directory"
             Copy-Item -Path "$BackupPath\ca.pem" -Destination "$Path\ca.pem"
 
+            Write-Output "[*] Deleteing old install of Elastic Agent to make room for new one"
+            Remove-Item -Path "C:\Program Files\Elastic" -Force
+
         }  # End ElseIf
         Else {
 
@@ -133,5 +136,7 @@ If ($CurrentVersion -ne $NewestVersion) {
     Write-Output "[*] Starting Services back up"
     Start-Service -Name $Services
     Get-Service -Name $Services
+
+    Write-Output "[*] You will need to reinstall Elastic Agent manually throught the Elasticsearch GUI under Fleet Server"
 
 }  # End If
